@@ -432,15 +432,15 @@ func mergeTwoListsRecursive(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
 //let secondStart = mergeTwoListsRecursive(aL, dL)
 //print(secondStart)
 
+var boardSize = 8
 var colMoves = [2, 2, -2, -2, 1, 1, -1, -1]
 var rowMoves = [1, -1, 1, -1, 2, -2, 2, -2]
-var col = Array(repeatElement(0, count: 6))
-var board = Array(repeatElement(col, count: 6))
+var col = Array(repeatElement(0, count: boardSize))
+var board = Array(repeatElement(col, count: boardSize))
 //board[0][0] = 1
 //print(board)
-
 func solveKnight(_ moveCount: Int, col: Int, row: Int) -> Bool {
-    if (moveCount == 6 * 6) {
+    if (moveCount == boardSize * boardSize) {
         return true
     }
     for move in 0..<colMoves.count {
@@ -449,20 +449,18 @@ func solveKnight(_ moveCount: Int, col: Int, row: Int) -> Bool {
 
         if (isValidMove(col: nextCol, row: nextRow) && board[nextCol][nextRow] == 0) {
             board[nextCol][nextRow] = moveCount
-            solveKnight(moveCount + 1, col: nextCol, row: nextRow)
-//            if (solveKnight(moveCount + 1, col: nextCol, row: nextRow)) {
-//                return true
-//            }
+            if (solveKnight(moveCount + 1, col: nextCol, row: nextRow)) {
+                return true
+            }
+        } else if (isValidMove(col: nextCol, row: nextRow)) {
+            board[nextCol][nextRow] = 0
         }
     }
+
     return false
 }
 func isValidMove(col: Int, row: Int) -> Bool {
-    if (col < 0 || col >= 6 || row < 0 || row >= 6) {
-        return false
-    } else {
-        return true
-    }
+    return (col >= 0 && col < boardSize && row >= 0 && row < boardSize)
 }
 //board[0][0] = 1
 //solveKnight(2, col: 0, row: 0)
@@ -618,7 +616,6 @@ func wordExistsIn(in board: [[Character]], _ word: String) -> Bool {
     return false
 }
 func recursive4Search(_ index: Int, _ row: Int, _ col: Int, _ board: [[Character]], _ target: [Character]) -> Bool {
-
     if (index == target.count) {
         return true
     }
@@ -727,9 +724,45 @@ func threeSum(_ num: [Int], _ target: Int) -> [[Int]] {
 
     return solution
 }
-print(threeSum(threeSumArray, 0))
+//print(threeSum(threeSumArray, 0))
 //[
 //  [-1, 0, 1],
 //  [-1, -1, 2]
 //]
 // []
+var islands: [[Character]] = [
+    ["1","1","1","1","0"],
+    ["1","1","0","0","0"],
+    ["1","0","1","0","0"],
+    ["0","0","0","1","1"]
+]
+func numIslands(_ grid: [[Character]]) -> Int {
+    var checkGrid = grid
+    var count = 0
+
+    for row in 0..<checkGrid.count {
+        for col in 0..<checkGrid[row].count {
+            if (checkGrid[row][col] == Character("1")) {
+                count += 1
+                checkGrid = checkIslandBorder(row, col, checkGrid)
+            }
+        }
+    }
+
+    return count
+}
+func checkIslandBorder(_ row: Int, _ col: Int, _ grid: [[Character]]) -> [[Character]] {
+    var checkGrid = grid
+
+    if (row < 0 || row >= grid.count || col < 0 || col >= grid[row].count || grid[row][col] == Character("0")) {
+        return checkGrid
+    }
+    checkGrid[row][col] = Character("0")
+    checkGrid = checkIslandBorder(row + 1, col, checkGrid)
+    checkGrid = checkIslandBorder(row - 1, col, checkGrid)
+    checkGrid = checkIslandBorder(row, col + 1, checkGrid)
+    checkGrid = checkIslandBorder(row, col - 1, checkGrid)
+
+    return checkGrid
+}
+print(numIslands(islands))
