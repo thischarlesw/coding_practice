@@ -765,4 +765,95 @@ func checkIslandBorder(_ row: Int, _ col: Int, _ grid: [[Character]]) -> [[Chara
 
     return checkGrid
 }
-print(numIslands(islands))
+//print(numIslands(islands))
+
+class DoubleLinkedList {
+    var key     : Int!
+    var value   : Int!
+    var left    : DoubleLinkedList?
+    var right   : DoubleLinkedList?
+
+    func printNodeValue(_ node: DoubleLinkedList?) {
+        var thisNode = node
+        var array = [Int?]()
+
+        while thisNode?.right != nil {
+            array.append(thisNode?.value)
+            thisNode = thisNode?.right
+        }
+        print(array)
+//        if node?.right != nil {
+//            if let value = node?.right?.value {
+//                print(value)
+//                printNodeValue(node?.right)
+//            }
+//
+//        }
+    }
+}
+
+class LRUCache {
+    var head        = DoubleLinkedList()
+    var tail        = DoubleLinkedList()
+    var dictionary  = [Int : DoubleLinkedList]()
+    var capacity    = 0
+    var nodeCount   = 0
+
+    init(_ capacity: Int) {
+        self.capacity = capacity
+        head.right = tail
+        tail.left = head
+    }
+
+    func get(_ key: Int) -> Int {
+        var value = -1
+
+        if let node = dictionary[key] {
+            value = node.value
+            remove(node)
+            addToRight(node)
+        }
+        return value
+    }
+
+    func put(_ key: Int, _ value: Int) {
+        let node = DoubleLinkedList()
+        node.key    = key
+        node.value  = value
+
+        if (!dictionary.keys.contains(key)) {
+            nodeCount += 1
+            if (nodeCount > capacity) {
+                if let actualHead = head.right {
+                    dictionary.removeValue(forKey: actualHead.key)
+                    remove(actualHead)
+                }
+                nodeCount -= 1
+            }
+
+        } else {
+            if let nodeToRemove = dictionary[key] {
+                remove(nodeToRemove)
+            }
+        }
+        addToRight(node)
+        dictionary[key] = node
+    }
+
+    func remove(_ node: DoubleLinkedList) {
+        let nodeLeft = node.left
+        let nodeRight = node.right
+
+        nodeLeft?.right = nodeRight
+        nodeRight?.left = nodeLeft
+    }
+    func addToRight(_ node: DoubleLinkedList) {
+        let actualTail     = tail.left
+
+        actualTail?.right   = node
+        tail.left           = node
+
+        node.left   = actualTail
+        node.right  = tail
+    }
+}
