@@ -233,7 +233,6 @@ func isPalindrome(_ s: String) -> Bool {
 }
 //isPalindrome("bba")
 func longCheck(_ s: String) -> String {
-    var hasPalindrome = false
     let stringArray = Array(s)
 //    let sReversed = s.reversed()
     var count = 0
@@ -526,72 +525,39 @@ func mergeSortedArrays(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int)
 //mergeSortedArrays(&input, 5, input2, 1)
 //print(input)
 
-func mergeOverlaps(_ arr: [[Int]]) -> [[Int]] {
-    var sorted = arr
-    var mergeable = [[Int]]()
-
-    sorted = sorted.sorted { (left, right) -> Bool in
+func mergeOverlappingIntervals(_ arr: [[Int]]) -> [[Int]] {
+    var intervalArray = arr
+    intervalArray.sort { (left, right) -> Bool in
         left[0] < right[0]
     }
-    let staticSort = sorted
+    var checked = Array(repeating: false, count: intervalArray.count)
+    var solution = [[Int]]()
+    var groupLow = 0
+    var groupHigh = 0
+    let arrayCount = intervalArray.count
 
-    var group = [Int]()
-    var indexTracker = 0
-    while !sorted.isEmpty {
-        for (i, interval) in sorted.enumerated() {
-            if (i + 1 < sorted.count) {
-                if (interval[1] > sorted[i + 1][0]) {
-                    if (!group.contains(i)) {
-                        group.append(i)
-                    }
-                    group.append(i + 1)
+    for i in 0..<arrayCount {
+        groupLow = intervalArray[i][0]
+        groupHigh = intervalArray[i][1]
+
+        if (!checked[i]) {
+            for j in i..<arrayCount {
+                if (intervalArray[j][0] >= groupLow && intervalArray[j][0] <= groupHigh) {
+                    groupHigh = intervalArray[j][1] > groupHigh ? intervalArray[j][1] : groupHigh
+                    checked[j] = true
                 }
-            } else if (sorted.count == 1) {
-                group.append(indexTracker)
             }
+            solution.append([groupLow, groupHigh])
+            groupLow = 0
+            groupHigh = 0
         }
-        mergeable.append(group)
-
-        for _ in 0..<group.count {
-            sorted.remove(at: 0)
-            indexTracker += 1
-        }
-        group.removeAll()
     }
-    return combineGroups(staticSort, mergeable)
+    return solution
 }
-func combineGroups(_ arr: [[Int]], _ groups: [[Int]]) -> [[Int]] {
-    var lowestInGroup: Int
-    var highestInGroup: Int
-    var mergedInterval = [[Int]]()
-
-    for group in groups {
-        let firstInterval = group[0]
-        lowestInGroup = arr[firstInterval][0]
-        highestInGroup = arr[firstInterval][1]
-
-        for interval in group {
-            let low = arr[interval][0]
-            let high = arr[interval][1]
-
-            if (low < lowestInGroup) {
-                lowestInGroup = low
-            }
-            if (high > highestInGroup) {
-                highestInGroup = high
-            }
-        }
-
-        mergedInterval.append([lowestInGroup, highestInGroup])
-    }
-
-    return mergedInterval
-}
-
 //var arraysToMerge = [[1, 3], [2, 6], [11, 12], [5, 10]]
-//var arraysToMerge = [[1,3], [2,6], [8,10], [15,18]]
-//combineGroups(arraysToMerge, [[0, 1], [2], [3]])
-//mergeOverlaps(arraysToMerge)
+//var arraysToMerge = [[1,4], [2,4]]
+//var arraysToMerge = [[5,5],[1,3],[3,5],[4,6],[1,1],[3,3],[5,6],[3,3],[2,4],[0,0]]
+//mergeOverlappingIntervals(arraysToMerge)
 
 let wordBoard: [[Character]] = [
     ["A","B","C","E"],
@@ -706,7 +672,7 @@ func threeSum(_ num: [Int], _ target: Int) -> [[Int]] {
         return solution
     }
 
-    for (i, v) in num.enumerated() {
+    for  v in num {
         let twoSumIndex = twoSum(num, -v)
         if (twoSumIndex.count > 0) {
             var three = [
@@ -721,7 +687,6 @@ func threeSum(_ num: [Int], _ target: Int) -> [[Int]] {
             }
         }
     }
-
     return solution
 }
 //print(threeSum(threeSumArray, 0))
@@ -767,13 +732,13 @@ func checkIslandBorder(_ row: Int, _ col: Int, _ grid: [[Character]]) -> [[Chara
 }
 //print(numIslands(islands))
 
-class DoubleLinkedList {
+class DoubleLinkedNode {
     var key     : Int!
     var value   : Int!
-    var left    : DoubleLinkedList?
-    var right   : DoubleLinkedList?
+    var left    : DoubleLinkedNode?
+    var right   : DoubleLinkedNode?
 
-    func printNodeValue(_ node: DoubleLinkedList?) {
+    func printNodeValue(_ node: DoubleLinkedNode?) {
         var thisNode = node
         var array = [Int?]()
 
@@ -787,15 +752,14 @@ class DoubleLinkedList {
 //                print(value)
 //                printNodeValue(node?.right)
 //            }
-//
 //        }
     }
 }
 
 class LRUCache {
-    var head        = DoubleLinkedList()
-    var tail        = DoubleLinkedList()
-    var dictionary  = [Int : DoubleLinkedList]()
+    var head        = DoubleLinkedNode()
+    var tail        = DoubleLinkedNode()
+    var dictionary  = [Int : DoubleLinkedNode]()
     var capacity    = 0
     var nodeCount   = 0
 
@@ -817,7 +781,7 @@ class LRUCache {
     }
 
     func put(_ key: Int, _ value: Int) {
-        let node = DoubleLinkedList()
+        let node = DoubleLinkedNode()
         node.key    = key
         node.value  = value
 
@@ -830,7 +794,6 @@ class LRUCache {
                 }
                 nodeCount -= 1
             }
-
         } else {
             if let nodeToRemove = dictionary[key] {
                 remove(nodeToRemove)
@@ -840,15 +803,15 @@ class LRUCache {
         dictionary[key] = node
     }
 
-    func remove(_ node: DoubleLinkedList) {
+    func remove(_ node: DoubleLinkedNode) {
         let nodeLeft = node.left
         let nodeRight = node.right
 
         nodeLeft?.right = nodeRight
         nodeRight?.left = nodeLeft
     }
-    func addToRight(_ node: DoubleLinkedList) {
-        let actualTail     = tail.left
+    func addToRight(_ node: DoubleLinkedNode) {
+        let actualTail      = tail.left
 
         actualTail?.right   = node
         tail.left           = node
@@ -857,3 +820,50 @@ class LRUCache {
         node.right  = tail
     }
 }
+
+func isHappy(_ n: Int) -> Bool {
+    var slow = n
+    var fast = getNext(n)
+
+    while (fast != slow && fast != 1) {
+        fast = getNext(getNext(fast))
+        slow = getNext(slow)
+    }
+
+    return fast == 1
+}
+func getNext(_ n: Int) -> Int {
+    var sum = 0
+    var n = n
+
+    while n > 0 {
+        let half = n % 10
+        n = n / 10
+        sum += half * half
+    }
+
+    return sum
+}
+//isHappy(2)
+
+//var prices = [7,1,5,3,6,4] // 5
+//prices = [1,2] // 1
+func maxProfit(_ prices: [Int]) -> Int {
+    if (prices.count == 0) {
+        return 0
+    }
+
+    var lowest = Int.max
+    var maxProfit = 0
+
+    for i in 0..<prices.count {
+        if (prices[i] < lowest) {
+            lowest = prices[i]
+        } else if (prices[i] - lowest > maxProfit) {
+            maxProfit = prices[i] - lowest
+        }
+    }
+
+    return maxProfit
+}
+//maxProfit(prices)
