@@ -867,3 +867,46 @@ func maxProfit(_ prices: [Int]) -> Int {
     return maxProfit
 }
 //maxProfit(prices)
+
+let sortedArray = [0,2,4,6,8,10,12,14,16,18,20]
+func binarySearch(_ array: [Int], _ target: Int, _ leftBorder: Int, _ rightBorder: Int) -> Int? {
+    if (leftBorder > rightBorder) {
+        return nil
+    }
+    let mid = (leftBorder + rightBorder) / 2
+
+    if (array[mid] < target) {
+        return binarySearch(array, target, mid, leftBorder + rightBorder)
+    } else if (array[mid] > target) {
+        return binarySearch(array, target, 0, mid)
+    } else {
+        return mid
+    }
+}
+//binarySearch(sortedArray, 16, 0, sortedArray.count)
+
+var unsortedArray = [9,2,41,12,5,4,78,132]
+func mergeSort(_ array: [Int]) -> [Int] {
+    if (array.count == 0 || array.count == 1) {
+        return array
+    }
+    let leftArray = Array(array[0..<(array.count / 2)])
+    let rightArray = Array(array[(array.count / 2)..<(array.count)])
+
+    return merge(left: mergeSort(leftArray), right: mergeSort(rightArray))
+}
+func merge(left: [Int], right: [Int]) -> [Int] {
+    var solution = [Int]()
+    var left = left
+    var right = right
+
+    while left.count > 0 && right.count > 0 {
+        if (left[0] < right[0]) {
+            solution.append(left.removeFirst())
+        } else {
+            solution.append(right.removeFirst())
+        }
+    }
+    return solution + left + right
+}
+//mergeSort(unsortedArray)
