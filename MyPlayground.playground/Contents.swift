@@ -56,15 +56,6 @@ class Node {
         nodes = nodeArray
     }
 }
-class BinaryNode {
-    var value       : String
-    var leftNode    : BinaryNode?
-    var rightNode   : BinaryNode?
-
-    init(_ value: String) {
-        self.value = value
-    }
-}
 class Queue {
     var array = [Any]()
 
@@ -910,3 +901,105 @@ func merge(left: [Int], right: [Int]) -> [Int] {
     return solution + left + right
 }
 //mergeSort(unsortedArray)
+
+class MinBinaryHeap {
+    var array = [Int]()
+
+    private func getLeftIndex(_ index: Int) -> Int {
+        return index * 2 + 1
+    }
+    private func getRightIndex(_ index: Int) -> Int {
+        return index * 2 + 2
+    }
+    private func getParentIndex(_ index: Int) -> Int {
+        return (index - 1) / 2
+    }
+    private func hasLeftChild(_ index: Int) -> Bool {
+        return getLeftIndex(index) < array.count
+    }
+    private func hasRightChild(_ index: Int) -> Bool {
+        return getRightIndex(index) < array.count
+    }
+    private func hasParent(_ index: Int) -> Bool {
+        return getParentIndex(index) >= 0
+    }
+    func leftChild(_ index: Int) -> Int {
+        if !(hasLeftChild(index)) {
+            return -1
+        }
+        return array[getLeftIndex(index)]
+    }
+    func rightChild(_ index: Int) -> Int {
+        if !(hasRightChild(index)) {
+            return -1
+        }
+        return array[getRightIndex(index)]
+    }
+    func parent(_ index: Int) -> Int {
+        if !(hasParent(index)) {
+            return -1
+        }
+        return array[getParentIndex(index)]
+    }
+
+    private func swap(indexOne: Int, indexTwo: Int) {
+        let temp = array[indexOne]
+        array[indexOne] = array[indexTwo]
+        array[indexTwo] = temp
+    }
+
+    func getMin() -> Int {
+        if (array.count > 0) {
+            return array[0]
+        }
+        return -1
+    }
+    func removeMin() -> Int {
+        if (array.count == 0) {
+            return -1
+        }
+        let root = array[0]
+        array[0] = array.removeLast()
+        bubbleDown()
+
+        return root
+    }
+    func add(_ value: Int) {
+        array.append(value)
+        bubbleUp()
+    }
+    func bubbleDown() {
+        var index = 0
+        while hasLeftChild(index) {
+            var smallerChild = getLeftIndex(index)
+            if (hasRightChild(index) && rightChild(index) < leftChild(index)) {
+                smallerChild = getRightIndex(index)
+            }
+            if (array[index] < array[smallerChild]) {
+                break
+            } else {
+                swap(indexOne: index, indexTwo: smallerChild)
+            }
+            index = smallerChild
+        }
+    }
+    func bubbleUp() {
+        var index = array.count - 1
+        while hasParent(index) && parent(index) > array[index] {
+            swap(indexOne: index, indexTwo: (index - 1) / 2)
+            index = getParentIndex(index)
+        }
+    }
+}
+
+let min = MinBinaryHeap()
+
+min.add(3)
+min.add(12)
+min.add(4)
+min.add(9)
+print(min.array)
+min.add(6)
+min.add(2)
+print(min.array)
+min.leftChild(5)
