@@ -1,3 +1,4 @@
+import Foundation
 // Fibonacci dynamically programmed
 // 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
 // 0, 1, 2, 3, 4, 5, 6,  7,  8,  9
@@ -80,16 +81,16 @@ class Queue {
     }
 }
 
-var a = Node("a")
-var b = Node("b")
-var c = Node("c")
-var d = Node("d")
-var e = Node("e")
-var f = Node("f")
-var g = Node("g")
-var h = Node("h")
-var i = Node("i")
-var j = Node("j")
+//var a = Node("a")
+//var b = Node("b")
+//var c = Node("c")
+//var d = Node("d")
+//var e = Node("e")
+//var f = Node("f")
+//var g = Node("g")
+//var h = Node("h")
+//var i = Node("i")
+//var j = Node("j")
 
 //                 a
 //              /  |  \
@@ -99,14 +100,14 @@ var j = Node("j")
 //             |   |
 //             i   j
 
-func linkNodes() {
-    a.add([b, c, d])
-    b.add([e, f])
-    c.add([g])
-    d.add([h])
-    f.add([i])
-    g.add([j])
-}
+//func linkNodes() {
+//    a.add([b, c, d])
+//    b.add([e, f])
+//    c.add([g])
+//    d.add([h])
+//    f.add([i])
+//    g.add([j])
+//}
 
 // Depth first search
 func depthSearch(_ root: Node, target: Node) -> Node? {
@@ -157,12 +158,12 @@ func breadthSearch(_ root: Node, target: Node) -> Node? {
 //breadthSearch(a, target: g)
 
 
-[ // a, b, c, d
-    [0, 1, 2, 0], // a
-    [1, 0, 1, 1], // b
-    [2, 1, 0, 3], // c
-    [0, 1, 3, 0]  // d
-]
+//[ // a, b, c, d
+//    [0, 1, 2, 0], // a
+//    [1, 0, 1, 1], // b
+//    [2, 1, 0, 3], // c
+//    [0, 1, 3, 0]  // d
+//]
 //  a - b
 //  |     \
 //    /    d
@@ -180,7 +181,7 @@ class ListNode {
     }
 }
 
-var sub = "dadvj"
+//var sub = "dadvj"
 //var sub = "aab"
 //var sub = "pwwkew"
 //var sub = "bbbb"
@@ -341,19 +342,19 @@ func isValidParentheses(_ s: String) -> Bool {
 //isValidParentheses("({)[}]")
 
 
-var aL = ListNode(2)
-var bL = ListNode(3)
-var cL = ListNode(5)
-
-var dL = ListNode(1)
-var eL = ListNode(4)
-var fL = ListNode(6)
-
-aL.next = bL
-bL.next = cL
-
-dL.next = eL
-eL.next = fL
+//var aL = ListNode(2)
+//var bL = ListNode(3)
+//var cL = ListNode(5)
+//
+//var dL = ListNode(1)
+//var eL = ListNode(4)
+//var fL = ListNode(6)
+//
+//aL.next = bL
+//bL.next = cL
+//
+//dL.next = eL
+//eL.next = fL
 
 func print(node: ListNode?) {
     if let node = node {
@@ -456,7 +457,7 @@ func isValidMove(col: Int, row: Int) -> Bool {
 //solveKnight(2, col: 0, row: 0)
 //print(board)
 
-var input = [-2,1,-3,4,-1,2,1,-5,4]
+//var input = [-2,1,-3,4,-1,2,1,-5,4]
 func maxSubArraySum(_ nums: [Int]) -> Int {
     var currentSum = nums[0]
     var maxSum = nums[0]
@@ -471,14 +472,12 @@ func maxSubArraySum(_ nums: [Int]) -> Int {
 }
 //maxSubArraySum(input) // 6
 
-input = [4, 5, 6, 0, 0, 0]
-var input2 = [1, 2, 3]
-//input = [2]
-//input2 = [Int]()
+//var input = [2]
+//var input2 = [Int]()
 //input = [1,2,3,0,0,0]
 //input2 = [2,5,6]
-input = [-1,2,4,5,6,0]
-input2 = [3]
+//input = [-1,2,4,5,6,0]
+//input2 = [3]
 func mergeSortedArrays(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
     var h1 = 0
     var h2 = 0
@@ -594,8 +593,9 @@ func recursive4Search(_ index: Int, _ row: Int, _ col: Int, _ board: [[Character
 }
 //print((wordExistsIn(in: wordBoard, target)))
 
+// recursion
 var listNodes = [ListNode]()
-for i in [8,8,8,8] {
+for i in [1,2,3,4] {
     listNodes.append(ListNode(i))
 }
 for (i, node) in listNodes.enumerated() {
@@ -681,11 +681,8 @@ func threeSum(_ num: [Int], _ target: Int) -> [[Int]] {
     return solution
 }
 //print(threeSum(threeSumArray, 0))
-//[
-//  [-1, 0, 1],
-//  [-1, -1, 2]
-//]
-// []
+
+// recursion
 var islands: [[Character]] = [
     ["1","1","1","1","0"],
     ["1","1","0","0","0"],
@@ -859,47 +856,30 @@ func maxProfit(_ prices: [Int]) -> Int {
 }
 //maxProfit(prices)
 
-let sortedArray = [0,2,4,6,8,10,12,14,16,18,20]
-func binarySearch(_ array: [Int], _ target: Int, _ leftBorder: Int, _ rightBorder: Int) -> Int? {
-    if (leftBorder > rightBorder) {
-        return nil
-    }
-    let mid = (leftBorder + rightBorder) / 2
-
-    if (array[mid] < target) {
-        return binarySearch(array, target, mid, leftBorder + rightBorder)
-    } else if (array[mid] > target) {
-        return binarySearch(array, target, 0, mid)
-    } else {
-        return mid
-    }
-}
-//binarySearch(sortedArray, 16, 0, sortedArray.count)
-
-var unsortedArray = [9,2,41,12,5,4,78,132]
-func mergeSort(_ array: [Int]) -> [Int] {
-    if (array.count == 0 || array.count == 1) {
-        return array
-    }
-    let leftArray = Array(array[0..<(array.count / 2)])
-    let rightArray = Array(array[(array.count / 2)..<(array.count)])
-
-    return merge(left: mergeSort(leftArray), right: mergeSort(rightArray))
-}
-func merge(left: [Int], right: [Int]) -> [Int] {
-    var solution = [Int]()
-    var left = left
-    var right = right
-
-    while left.count > 0 && right.count > 0 {
-        if (left[0] < right[0]) {
-            solution.append(left.removeFirst())
-        } else {
-            solution.append(right.removeFirst())
-        }
-    }
-    return solution + left + right
-}
+//var unsortedArray = [9,2,41,12,5,4,78,132]
+//func mergeSort(_ array: [Int]) -> [Int] {
+//    if (array.count == 0 || array.count == 1) {
+//        return array
+//    }
+//    let leftArray = Array(array[0..<(array.count / 2)])
+//    let rightArray = Array(array[(array.count / 2)..<(array.count)])
+//
+//    return merge(left: mergeSort(leftArray), right: mergeSort(rightArray))
+//}
+//func merge(left: [Int], right: [Int]) -> [Int] {
+//    var solution = [Int]()
+//    var left = left
+//    var right = right
+//
+//    while left.count > 0 && right.count > 0 {
+//        if (left[0] < right[0]) {
+//            solution.append(left.removeFirst())
+//        } else {
+//            solution.append(right.removeFirst())
+//        }
+//    }
+//    return solution + left + right
+//}
 //mergeSort(unsortedArray)
 
 class MinBinaryHeap {
@@ -991,15 +971,373 @@ class MinBinaryHeap {
         }
     }
 }
+//let min = MinBinaryHeap()
+//min.add(3)
+//min.add(12)
+//min.add(4)
+//min.add(9)
+//print(min.array)
+//min.add(6)
+//min.add(2)
+//print(min.array)
+//min.leftChild(5)
 
-let min = MinBinaryHeap()
+//[
+//  1->4->5,
+//  1->3->4,
+//  2->6
+//]
+func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+    if (lists.isEmpty) {
+        return nil
+    }
+    if (lists.count == 1) {
+        return lists.first as? ListNode
+    }
 
-min.add(3)
-min.add(12)
-min.add(4)
-min.add(9)
-print(min.array)
-min.add(6)
-min.add(2)
-print(min.array)
-min.leftChild(5)
+    let left = lists[0..<lists.count / 2]
+    let right = lists[(lists.count / 2)..<lists.count]
+
+    return mergeTwoKLists(mergeKLists(Array(left)), mergeKLists(Array(right)))
+}
+func mergeTwoKLists(_ listOne: ListNode?, _ listTwo: ListNode?) -> ListNode? {
+    var current = ListNode(0)
+    let head = current
+    var currentOne = listOne
+    var currentTwo = listTwo
+
+    while currentOne != nil && currentTwo != nil {
+        if currentOne!.val < currentTwo!.val {
+            current.next = currentOne
+            current = current.next!
+            currentOne = currentOne!.next
+        } else {
+            current.next = currentTwo
+            current = current.next!
+            currentTwo = currentTwo?.next
+        }
+    }
+    if currentOne == nil {
+        current.next = currentTwo
+    } else if currentTwo == nil {
+        current.next = currentOne
+    }
+    return head.next
+}
+//1->1->2->3->4->4->5->6
+
+let rotatedArray = [1,2,3]
+let rotatedTarget = 0
+func rotatedSearch(_ nums: [Int], _ target: Int) -> Int {
+    let index = findRotationIndex(nums, 0, nums.count-1)
+    if (index == -1) {
+        return -1
+    }
+
+    if (target < nums[0]) {
+        return binarySearch(nums, target, index+1, nums.count)
+    } else {
+        return binarySearch(nums, target, 0, index)
+    }
+}
+func findRotationIndex(_ nums: [Int], _ left: Int, _ right: Int) -> Int {
+    let mid = (left + right) / 2
+
+    if (left > right) {
+        return -1
+    }
+    if (nums[left] < nums[right-1] || mid+1 >= nums.count) {
+        return 0
+    }
+
+    if (nums[mid] > nums[mid+1]) {
+        return mid
+    } else if (nums[left] > nums[mid]) {
+        return findRotationIndex(nums, left, mid-1)
+    } else {
+        return findRotationIndex(nums, mid+1, right)
+    }
+}
+func binarySearch(_ nums: [Int], _ target: Int, _ left: Int, _ right: Int) -> Int {
+    if (left > right || nums.count == 0) {
+        return -1
+    }
+
+    let mid = (left+right)/2
+    if (target < nums[mid]) {
+        return binarySearch(nums, target, left, mid-1)
+    } else if (target > nums[mid]) {
+        return binarySearch(nums, target, mid+1, right)
+    } else {
+        return mid
+    }
+}
+//findRotationIndex([3,4,1], 0, 3)
+//print(rotatedSearch(rotatedArray, rotatedTarget))
+
+// O(1) to add and remove
+class RandomizedSet {
+    var items = [Int]()         // [value]
+    var dict = [Int : Int]()    // [value : index]
+
+    init() {
+
+    }
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    func insert(_ val: Int) -> Bool {
+        if let _ = dict[val] {
+            return false
+        } else {
+            items.append(val)
+            dict[val] = items.count - 1
+
+            return true
+        }
+    }
+
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    func remove(_ val: Int) -> Bool {
+        if let i = dict[val] {
+            let itemToRemove    = items[i]
+            let itemLast        = items.last!
+
+            items[i] = itemLast
+            items.removeLast()
+            dict[itemLast] = i
+            dict.removeValue(forKey: itemToRemove)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    /** Get a random element from the set. */
+    func getRandom() -> Int {
+        return items.randomElement()!
+    }
+}
+//let rSet = RandomizedSet()
+//rSet.insert(1)
+//rSet.insert(0)
+//rSet.remove(0)
+
+// recursion
+var permutations = [[Int]]()
+func permutations(_ array: [Int]) -> [[Int]] {
+    addPermutations(array, [])
+    return permutations
+}
+func addPermutations(_ digits: [Int], _ saved: [Int]) {
+    if (digits.isEmpty) {
+        permutations.append(saved)
+    }
+    for i in 0..<digits.count {
+        var remainder = digits
+        let current = remainder.remove(at: i)
+        addPermutations(remainder, saved + [current])
+    }
+}
+//print(permutations([1,2,3]))
+
+//let s = "leetcode"
+//let wordDict = ["leet", "code"]
+//let s = "aabbcc"
+//let wordDict = ["aa", "bb", "cc"]
+let s = "catsandog"
+let wordDict = ["cats", "dog", "sand", "and", "cat"]
+// recursion
+func wordBreak(_ s: String, _ wordDict: [String]) -> Bool {
+    return wordBreakCheck(s, wordDict, 0)
+}
+func wordBreakCheck(_ s: String, _ wordDict: [String], _ start: Int) -> Bool {
+    if (start == s.count) {
+        return true
+    }
+    for i in 0..<s.count {
+        let prefix = String(Array(s)[0..<i])
+        let suffix = String(Array(s)[i..<s.count])
+
+        if (wordDict.contains(prefix) && wordBreakCheck(suffix, wordDict, i)) {
+            return true
+        }
+    }
+    return false
+}
+//print(wordBreak(s, wordDict))
+
+
+let beginWord = "hit"
+let endWord = "cog"
+let wordList = ["hot","dot","dog","lot","log","cog"]
+func generateNodes(_ wordDict: [String]) -> [String : [String]] {
+    var stringLink = [String : [String]]()
+
+    for word in wordDict {
+        var stringStars = [String]()
+        for (i,_) in word.enumerated() {
+            var starWord = Array(word)
+            starWord[i] = "*"
+            stringStars.append(String(starWord))
+        }
+        stringLink[String(word)] = stringStars
+    }
+
+    return stringLink
+}
+func ladderLength(_ beginWord: String, _ endWord: String, _ wordList: [String]) -> Int {
+    let nodeDict = generateNodes(wordList)
+//    print(nodeDict)
+    let keys: [String] = Array(nodeDict.keys)
+    let falseArray = Array(repeating: false, count: keys.count)
+    var visited: [String : Bool] = Dictionary(uniqueKeysWithValues: zip(keys, falseArray))
+    var visits = 0
+
+    let q = Queue()
+    q.add(beginWord)
+    visited[beginWord] = true
+
+//    print(visited)
+    while !q.isEmpty() {
+        let word = q.dequeue() as! String
+        print(word)
+        print(nodeDict)
+        let linkedWords = nodeDict[word]
+
+        if (word == endWord) {
+            return visits
+        }
+
+        for w in linkedWords! {
+            if (!visited[w]!) {
+                visits += 1
+                visited[w]! = true
+                q.add(w)
+            }
+        }
+    }
+
+
+    return visits
+}
+//ladderLength(beginWord, endWord, wordList)
+
+//Input:  [1,2,3,4]
+//Output: [24,12,8,6]
+func productExceptSelf(_ nums: [Int]) -> [Int] {
+    var leftWay: [Int] = Array(repeating: 1, count: nums.count)
+    var rightWay: [Int] = Array(repeating: 1, count: nums.count)
+    var solution: [Int] = Array(repeating: 1, count: nums.count)
+
+    for (i,v) in nums.enumerated() {
+        if (i < nums.count-1) {
+            leftWay[i+1] = v * leftWay[i]
+        }
+    }
+    let reversed = nums.reversed()
+    for (i,v) in reversed.enumerated() {
+        if (i < nums.count-1) {
+            rightWay[i+1] = v * rightWay[i]
+        }
+    }
+    rightWay = rightWay.reversed()
+
+    for (i,_) in nums.enumerated() {
+        solution[i] = leftWay[i] * rightWay[i]
+    }
+
+    return solution
+}
+//productExceptSelf([4,5,1,8,2])
+
+// Rotted orange is 2, rots neighbor once a turn
+// return turns to full rot or -1 if there is a fresh
+var orangeArray = [[2,1,1],[1,1,0],[0,1,1]]
+func orangesRotting(_ tray: [[Int]]) -> Int {
+    var turns = 0
+
+    var check = checkRot(tray)
+    while check.0 {
+        check = checkRot(check.1)
+        turns += 1
+    }
+
+    for row in check.1 {
+        for v in row {
+            if (v == 1) {
+                turns = -1
+            }
+        }
+    }
+
+    return turns
+}
+func checkRot(_ tray: [[Int]]) -> (Bool, [[Int]]) {
+    var tray = tray
+    var willRot = [[Int]]()
+    var isDone = true
+
+    for (i,row) in tray.enumerated() {
+        for (j,v) in row.enumerated() {
+            if (v == 2) {
+                if (orangeInTray(tray, i+1, j) && tray[i+1][j] == 1) {
+                    willRot.append([i+1, j])
+                }
+                if (orangeInTray(tray, i-1, j) && tray[i-1][j] == 1) {
+                    willRot.append([i-1, j])
+                }
+                if (orangeInTray(tray, i, j+1) && tray[i][j+1] == 1) {
+                    willRot.append([i, j+1])
+                }
+                if (orangeInTray(tray, i, j-1) && tray[i][j-1] == 1) {
+                    willRot.append([i, j-1])
+                }
+            }
+        }
+    }
+
+    if (willRot.isEmpty) {
+        isDone = false
+    } else {
+        for v in willRot {
+            tray[v[0]][v[1]] = 2
+        }
+    }
+
+    print(isDone)
+    print(tray)
+    return (isDone, tray)
+}
+func orangeInTray(_ tray: [[Int]], _ i: Int, _ j: Int) -> Bool {
+    return (i >= 0 && i < tray.count && j >= 0 && j < tray[i].count )
+}
+//orangesRotting([[1,0,0],[0,0,0],[1,1,0]])
+
+// Array of coins, min coins to make target amount
+// recursion
+var count = [Int : Int]()
+func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+    if (amount < 1) { return 0 }
+    return cChange(coins, amount)
+}
+func cChange(_ coins: [Int], _ remainder: Int) -> Int {
+    if (remainder < 0) { return -1 }
+    if (remainder == 0) { return 0 }
+    if let v = count[remainder-1] {
+        return v
+    }
+    var min = Int.max
+    for coin in coins {
+        let newRemainder = coinChange(coins, remainder-coin)
+
+        if (newRemainder < min && newRemainder >= 0) {
+            min = newRemainder + 1
+        }
+        count[remainder-1] = (min == Int.max) ? -1 : min
+//        print(remainder)
+//        print(count)
+    }
+
+    return count[remainder-1]!
+}
+//coinChange([1,2,5], 11)
+//coinChange([2], 3)
